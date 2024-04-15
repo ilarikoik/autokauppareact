@@ -10,7 +10,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 export default function EditCar(props) {
     const [open, setOpen] = useState(false);
     const [car, setCar] = useState({
-        brand: '', model: '', color: '', fuel: '', year:0, price:0
+        brand: '', model: '', color: '', fuel: '', year:'', price:0
     });
 
     const handleClickOpen = () => {
@@ -25,7 +25,7 @@ export default function EditCar(props) {
     };
 
     const handleInputChange = (event) => {
-        const value = event.target.name.toLowerCase() === 'year' ? parseInt(event.target.value) : event.target.value;
+        /* const value = event.target.name.toLowerCase() === 'year' ? parseInt(event.target.value) : event.target.value; */
         setCar({...car, [event.target.name]: value})
     };
     

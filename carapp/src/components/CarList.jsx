@@ -17,7 +17,7 @@ export default function CarList() {
       model: "",
       color: "",
       fuel: "",
-      year: 0,
+      year: "",
       price: 0,
     },
   ]);

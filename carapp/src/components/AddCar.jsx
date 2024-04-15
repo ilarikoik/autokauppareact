@@ -10,7 +10,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 export default function AddCar(props) {
     const [open, setOpen] = useState(false);
     const [car, setCar] = useState({
-        brand: '', model: '', color: '', fuel: '', year:0, price:0
+        brand: '', model: '', color: '', fuel: '', year:'', price:0
     });
 
     const handleClickOpen = () => {
@@ -39,17 +39,6 @@ export default function AddCar(props) {
       <Dialog
         open={open}
         onClose={handleClose}
-        PaperProps={{
-          component: 'form',
-          onSubmit: (event) => {
-            event.preventDefault();
-            const formData = new FormData(event.currentTarget);
-            const formJson = Object.fromEntries(formData.entries());
-            const email = formJson.email;
-            console.log(email);
-            handleClose();
-          },
-        }}
       >
         <DialogTitle>New car</DialogTitle>
         <DialogContent>{/* 
