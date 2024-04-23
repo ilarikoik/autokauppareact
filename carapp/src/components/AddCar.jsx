@@ -10,7 +10,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 export default function AddCar(props) {
     const [open, setOpen] = useState(false);
     const [car, setCar] = useState({
-        brand: '', model: '', color: '', fuel: '', year:'', price:0
+        brand: '', model: '', color: '', fuel: '', year:'', price:''
     });
 
     const handleClickOpen = () => {
@@ -86,6 +86,16 @@ export default function AddCar(props) {
             label="Fuel"
             variant="standard"
           />
+            <TextField
+              autoFocus
+              required
+              margin="dense"
+              name="year"
+              value={car.year}
+              onChange={e => handleInputChange(e)}
+              label="Year"
+              variant="standard"
+            />
           <TextField
             autoFocus
             required
@@ -94,16 +104,6 @@ export default function AddCar(props) {
             value={car.price}
             onChange={e => handleInputChange(e)}
             label="Price"
-            variant="standard"
-          />
-          <TextField
-            autoFocus
-            required
-            margin="dense"
-            name="year"
-            value={car.year}
-            onChange={e => handleInputChange(e)}
-            label="Year"
             variant="standard"
           />
         </DialogContent>

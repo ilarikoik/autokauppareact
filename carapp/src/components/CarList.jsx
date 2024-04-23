@@ -17,7 +17,7 @@ export default function CarList() {
       model: "",
       color: "",
       fuel: "",
-      year: "",
+      modelYear: 0,
       price: 0,
     },
   ]);
@@ -27,19 +27,20 @@ export default function CarList() {
   const [refresh, setRefresh] = useState(0);
 
   // hakee tiedot ku sivu avataa
+  const fetchCars = () => {
+    fetch("https://carrestservice-carshop.rahtiapp.fi/cars")
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      console.log(data); // tallenetaa vaa cars array
+      setCars(data._embedded.cars);
+    })
+    .catch((error) => console.log(error));
+  };
+
   useEffect(() => {
-    const fetchCars = () => {
-      fetch("https://carrestservice-carshop.rahtiapp.fi/cars")
-        .then((res) => {
-          return res.json();
-        })
-        .then((data) => {
-          console.log(data); // tallenetaa vaa cars array
-          setCars(data._embedded.cars);
-        })
-        .catch((error) => console.log(error));
-    };
-    fetchCars();
+  fetchCars();
   }, [refresh]);
 
   // agGrid
@@ -48,36 +49,46 @@ export default function CarList() {
       headerName: "Merkki",
       field: "brand",
       filter: true,
+      floatingFilter: true,
       /* checkboxSelection: true,  */ cellStyle: { textAlign: "left" },
     },
     {
       headerName: "Malli",
       field: "model",
       filter: true,
+      floatingFilter: true,
       cellStyle: { textAlign: "left" },
     },
     {
       headerName: "Väri",
       field: "color",
       filter: true,
+      floatingFilter: true,
+      
       cellStyle: { textAlign: "left" },
     },
     {
       headerName: "Polttoaine",
       field: "fuel",
       filter: true,
+      floatingFilter: true,
+
       cellStyle: { textAlign: "left" },
     },
     {
       headerName: "Vuosimalli",
       field: "modelYear",
       filter: true,
+      floatingFilter: true,
+
       cellStyle: { textAlign: "left" },
     },
     {
       headerName: "Hinta",
       field: "price",
       filter: true,
+      floatingFilter: true,
+
       cellStyle: { textAlign: "left" },
     },
     {
@@ -106,7 +117,8 @@ export default function CarList() {
     console.log("Clicked row index:", rowIndex);
     const model = cars[rowIndex].model;
     const brand = cars[rowIndex].brand;
-    console.log(model, brand);
+    const year = cars[rowIndex].modelYear;
+    console.log(model, brand, year);
     setMsgSnackBar(`Success: ${brand} ${model} deleted`); // ottaa vastaa vaa yhe argumenti joten pitää kirjottaa tollei yhellä vedolla
   };
 
@@ -153,10 +165,9 @@ export default function CarList() {
       .then((res) => {
         if (res.ok) {
           setRefresh(a => a +1);
-          fetchCars();
         }
       })
-      .catch((err) => console.log(err));
+      .catch(err => console.log(err));
   };
   return (
     <div>
@@ -172,7 +183,7 @@ export default function CarList() {
           rowSelection="multiple"
           pagination={true}
           paginationPageSize={100}
-          paginationPageSizeSelector={[10, 20, 50]}
+          paginationPageSizeSelector={[10, 20, 50,100]}
           onRowClicked={rowIndex} // ag gridi joku oma event listeneri?
         ></AgGridReact>
 
